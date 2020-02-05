@@ -1,0 +1,62 @@
+<div class="container">
+    <h2 class="m-3">Create new company</h2>
+    <form action="/addcompany" method="post" enctype="multipart/form-data">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Name company</span>
+        </div>
+        <input type="text" class="form-control" placeholder="" name="companyName" [(ngModel)]="company.companyName">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Category</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01">
+          <option selected>Choose...</option>
+          <option value="Photo">Photo</option>
+          <option value="Design">Design</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Short description</span>
+        </div>
+        <textarea class="form-control" name="shortDesc" [(ngModel)]="company.shortDisc"></textarea>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Full description</span>
+        </div>
+        <textarea class="form-control" name="fullDesc" [(ngModel)]="company.fullDisc"></textarea>
+      </div>
+<!--      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Upload</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="inputGroupFile01" name="urls" [(ngModel)]="company.urls">
+          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+      </div>-->
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3">YouTube link</span>
+        </div>
+        <input type="text" class="form-control" placeholder="" name="videoLink" [(ngModel)]="company.videoLink">
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon2">Goal</span>
+        </div>
+        <input type="number" class="form-control" placeholder="Counts money" name="goal" [(ngModel)]="company.goal">
+      </div>
+      <!-- Calendar -->
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon4">Duration date</span>
+        </div>
+        <input type="text" class="form-control" placeholder="yyyy-mm-dd" name="durationDate" [(ngModel)]="company.durationDate">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="addCompany()">Create company</button>
+    </form>
+  </div>

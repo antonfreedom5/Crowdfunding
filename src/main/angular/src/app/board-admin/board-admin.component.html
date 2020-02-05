@@ -1,0 +1,22 @@
+<div class="container">
+    <h2 class="m-3">Admin Board</h2>
+    <table class="table table-striped custab">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.roles}}</td>
+        <td class="text-center"><button class="btn btn-danger btn-xs" (click)="deleteUser(user.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button></td>
+      </tr>
+      </tbody>
+    </table>
+</div>
