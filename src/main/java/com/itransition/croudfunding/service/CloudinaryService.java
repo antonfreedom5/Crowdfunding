@@ -1,4 +1,4 @@
-package com.itransition.croudfunding.services;
+package com.itransition.croudfunding.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

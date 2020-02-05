@@ -1,7 +1,7 @@
-package com.itransition.croudfunding.services;
+package com.itransition.croudfunding.service;
 
-import com.itransition.croudfunding.models.Company;
-import com.itransition.croudfunding.models.Image;
+import com.itransition.croudfunding.entity.Company;
+import com.itransition.croudfunding.entity.Image;
 import com.itransition.croudfunding.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

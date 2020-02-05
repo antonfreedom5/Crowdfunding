@@ -1,8 +1,9 @@
-package com.itransition.croudfunding.models;
+package com.itransition.croudfunding.entity;
 
 public enum Categories {
     Tech,
     Food,
+    Anime,
     Sport,
     Science,
     Society,

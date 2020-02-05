@@ -1,7 +1,7 @@
 package com.itransition.croudfunding.repository;
 
-import com.itransition.croudfunding.models.Company;
-import com.itransition.croudfunding.models.Image;
+import com.itransition.croudfunding.entity.Company;
+import com.itransition.croudfunding.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,18 +1,20 @@
-package com.itransition.croudfunding.controllers;
+package com.itransition.croudfunding.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import com.itransition.croudfunding.models.Role;
-import com.itransition.croudfunding.models.User;
+import com.itransition.croudfunding.entity.Role;
+import com.itransition.croudfunding.entity.User;
 import com.itransition.croudfunding.payload.request.LoginRequest;
 import com.itransition.croudfunding.payload.request.SignupRequest;
 import com.itransition.croudfunding.payload.response.JwtResponse;
-import com.itransition.croudfunding.services.UserDetailsImpl;
+import com.itransition.croudfunding.service.UserDetailsImpl;
+import com.itransition.croudfunding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itransition.croudfunding.payload.response.MessageResponse;
-import com.itransition.croudfunding.repository.UserRepository;
 import com.itransition.croudfunding.security.jwt.JwtUtils;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -35,10 +36,10 @@ import com.itransition.croudfunding.security.jwt.JwtUtils;
 @RequestMapping("/api/auth")
 public class AuthController {
 	@Autowired
-	AuthenticationManager authenticationManager;
+	UserService userService;
 
 	@Autowired
-	UserRepository userRepository;
+	AuthenticationManager authenticationManager;
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -69,41 +70,49 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
+		Optional<ResponseEntity<?>> checkResult = checkSignUpRequest(signUpRequest);
+		if (checkResult.isPresent()) {
+			return checkResult.get();
 		}
 
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: Email is already in use!"));
-		}
-
-		// Create new user's account
 		User user = new User(signUpRequest.getUsername(),
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()));
 
-		Set<String> stringRoles = signUpRequest.getRole();
-		Set<Role> roles = new HashSet<>();
+		Set<Role> roles = convertToEnumSet(signUpRequest.getRole());
 
-		if (stringRoles == null) {
-			roles.add(Role.ROLE_USER);
+		user.setRoles(roles);
+		userService.save(user);
+		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+
+	private Optional<ResponseEntity<?>> checkSignUpRequest(SignupRequest signUpRequest) {
+		if (userService.existsByUsername(signUpRequest.getUsername())) {
+			return Optional.of(ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Username is already taken!")));
+		}
+		if (userService.existsByEmail(signUpRequest.getEmail())) {
+			return Optional.of(ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Email is already in use!")));
+		}
+		return Optional.empty();
+	}
+
+	private Set<Role> convertToEnumSet(Set<String> rolesStrings) {
+		Set<Role> roles = new HashSet<>();
+		if (rolesStrings == null) {
+			roles.add(Role.USER);
 		} else {
-			stringRoles.forEach(role -> {
-				if ("admin".equals(role)) {
-					roles.add(Role.ROLE_ADMIN);
+			rolesStrings.forEach(role -> {
+				if ("admin".equalsIgnoreCase(role)) {
+					roles.add(Role.ADMIN);
 				} else {
-					roles.add(Role.ROLE_USER);
+					roles.add(Role.USER);
 				}
 			});
 		}
-
-		user.setRoles(roles);
-		userRepository.save(user);
-
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return roles;
 	}
 }

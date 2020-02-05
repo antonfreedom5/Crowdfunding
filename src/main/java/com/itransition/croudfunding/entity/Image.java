@@ -1,4 +1,4 @@
-package com.itransition.croudfunding.models;
+package com.itransition.croudfunding.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

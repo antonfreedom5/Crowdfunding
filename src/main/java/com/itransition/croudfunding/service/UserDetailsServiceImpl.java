@@ -1,6 +1,6 @@
-package com.itransition.croudfunding.services;
+package com.itransition.croudfunding.service;
 
-import com.itransition.croudfunding.models.User;
+import com.itransition.croudfunding.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

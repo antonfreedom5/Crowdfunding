@@ -1,12 +1,8 @@
-package com.itransition.croudfunding.controllers;
+package com.itransition.croudfunding.controller;
 
-import com.itransition.croudfunding.models.Company;
-import com.itransition.croudfunding.models.User;
-import com.itransition.croudfunding.repository.UserRepository;
-import com.itransition.croudfunding.services.CloudinaryService;
-import com.itransition.croudfunding.services.CompanyService;
-import com.itransition.croudfunding.services.ImageService;
-import com.itransition.croudfunding.services.YouTubeService;
+import com.itransition.croudfunding.entity.Company;
+import com.itransition.croudfunding.entity.User;
+import com.itransition.croudfunding.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +15,7 @@ import java.util.List;
 public class CompanyController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
     CompanyService companyService;
@@ -51,7 +47,7 @@ public class CompanyController {
     @PostMapping("/addcompany")
     public @ResponseBody void addCompany(@RequestBody Company company) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User author = userRepository.findUserByUsername(authentication.getName());
+        User author = userService.findUserByUsername(authentication.getName());
         company.setAuthor(author);
        companyService.saveCompany(company);
     }

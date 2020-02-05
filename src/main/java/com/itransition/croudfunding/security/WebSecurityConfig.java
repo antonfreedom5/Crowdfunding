@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.itransition.croudfunding.security.jwt.AuthEntryPointJwt;
 import com.itransition.croudfunding.security.jwt.AuthTokenFilter;
-import com.itransition.croudfunding.services.UserDetailsServiceImpl;
+import com.itransition.croudfunding.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity

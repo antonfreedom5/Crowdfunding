@@ -2,7 +2,7 @@ package com.itransition.croudfunding.security.jwt;
 
 import java.util.Date;
 
-import com.itransition.croudfunding.services.UserDetailsImpl;
+import com.itransition.croudfunding.service.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

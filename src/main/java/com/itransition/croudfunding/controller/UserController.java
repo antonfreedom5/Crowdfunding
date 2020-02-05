@@ -1,8 +1,8 @@
-package com.itransition.croudfunding.controllers;
+package com.itransition.croudfunding.controller;
 
-import com.itransition.croudfunding.models.User;
+import com.itransition.croudfunding.entity.User;
 import com.itransition.croudfunding.repository.CompanyRepository;
-import com.itransition.croudfunding.repository.UserRepository;
+import com.itransition.croudfunding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,21 +15,21 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
     CompanyRepository companyRepository;
 
     @GetMapping("/userlist")
     public List<User> findAllUsers(){
-        return userRepository.findAll();
+        return userService.findAll();
     }
 
     @DeleteMapping("/cancel/{id}")
     @Transactional
     public List<User> cancelRegistration(@PathVariable long id) {
         companyRepository.deleteByAuthorId(id);
-        userRepository.deleteById(id);
-        return userRepository.findAll();
+        userService.deleteById(id);
+        return userService.findAll();
     }
 }

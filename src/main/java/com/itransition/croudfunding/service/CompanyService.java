@@ -1,7 +1,7 @@
-package com.itransition.croudfunding.services;
+package com.itransition.croudfunding.service;
 
-import com.itransition.croudfunding.models.Categories;
-import com.itransition.croudfunding.models.Company;
+import com.itransition.croudfunding.entity.Categories;
+import com.itransition.croudfunding.entity.Company;
 import com.itransition.croudfunding.repository.CompanyRepository;
 import com.itransition.croudfunding.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class CompanyService {
         return companyRepository.findByCategories(category);
     }
 
-    public List<Company> findTop3ByRating(){
+    public List<Company> findTop3ByRating() {
         List<Company> topCompanies = companyRepository.findTop3ByOrderByRatingDesc();
         for (Company company : topCompanies) {
             company.setUrls(imageService.getUrlsOfCompany(company));

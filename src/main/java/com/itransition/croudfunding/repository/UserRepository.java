@@ -2,7 +2,7 @@ package com.itransition.croudfunding.repository;
 
 import java.util.Optional;
 
-import com.itransition.croudfunding.models.User;
+import com.itransition.croudfunding.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

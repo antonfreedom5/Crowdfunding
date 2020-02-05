@@ -1,11 +1,11 @@
-package com.itransition.croudfunding.services;
+package com.itransition.croudfunding.service;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.itransition.croudfunding.models.User;
+import com.itransition.croudfunding.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
