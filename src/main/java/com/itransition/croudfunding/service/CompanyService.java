@@ -50,8 +50,7 @@ public class CompanyService {
         companyToEdit.setDurationDate(company.getDurationDate());
         companyToEdit.setShortDisc(company.getShortDisc());
         companyToEdit.setFullDisc(company.getFullDisc());
-        companyToEdit.setMainPicURL(company.getMainPicURL());
-        companyToEdit.setExtraPicURLs(company.getExtraPicURLs());
+        companyToEdit.setPicURLs(company.getPicURLs());
     }
 
     public void deleteListOfCompanies(List<Company> companies) {

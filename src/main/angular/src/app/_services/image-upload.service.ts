@@ -2,12 +2,16 @@ import {Injectable, OnInit} from '@angular/core';
 
 const cloudName = 'dwvirsr0i';
 const unsignedUploadPreset = 'vgffszgq';
+let onUploadedCallback;
 
 @Injectable()
 export class ImageUploadService {
-  constructor(private onUploaded) { }
 
-  public processDropbox(dropbox) {
+  public setOnUploadedCallback(callback) {
+    onUploadedCallback = callback;
+  }
+
+  public processDropboxSelect(dropbox) {
     function dragenter(e) {
       e.stopPropagation();
       e.preventDefault();
@@ -18,14 +22,16 @@ export class ImageUploadService {
       e.preventDefault();
     }
 
+    let context: ImageUploadService = this;
     function drop(e) {
       e.stopPropagation();
       e.preventDefault();
 
       var dt = e.dataTransfer;
       var files = dt.files;
-
-      this.handleFiles(files);
+      for (var i = 0; i < files.length; i++) {
+        context.uploadFile(files[i]); // call the function to upload the file
+      }
     }
 
     dropbox.addEventListener("dragenter", dragenter, false);
@@ -48,7 +54,8 @@ export class ImageUploadService {
     for (var i = 0; i < files.length; i++) {
       this.uploadFile(files[i]); // call the function to upload the file
     }
-  };
+  }
+
 
   public uploadFile(file) {
     var url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
@@ -66,10 +73,6 @@ export class ImageUploadService {
     // тут можно было бы добавить крутилку пока файл загружается...
     //xhr.upload.addEventListener();
 
-    function onUploadedFunction(url: any) {
-      this.onUploaded(url);
-    }
-
     xhr.onreadystatechange = function(e) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // File uploaded successfully
@@ -77,9 +80,9 @@ export class ImageUploadService {
         // https://res.cloudinary.com/cloudName/image/upload/v1483481128/public_id.jpg
         var url = response.secure_url;
         var tokens = url.split('/');
-        tokens.splice(-2, 0, 'w_340,c_scale');
+        tokens.splice(-2, 0, 'w_333,c_scale');
         url = tokens.join('/');
-        onUploadedFunction(url);
+        onUploadedCallback(url);
       }
     };
   }

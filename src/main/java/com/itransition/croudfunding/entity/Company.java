@@ -30,11 +30,9 @@ public class Company {
     @Column(length = 1000000)
     private String fullDisc;
 
-    private String mainPicURL;
-
     @ElementCollection(targetClass = String.class)
     @CollectionTable(name = "company_image", joinColumns = @JoinColumn(name = "company"))
-    private List<String> extraPicURLs;
+    private List<String> picURLs;
 
     private String videoLink;
 

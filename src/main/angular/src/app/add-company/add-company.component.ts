@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { CompanyService } from '../_services/company.service';
 import { Company } from '../Model/Company';
-
-const cloudName = 'dwvirsr0i';
-const unsignedUploadPreset = 'vgffszgq';
-let fileSelect;
-let fileElem;
-let urlSelect;
+import { DragDropComponent } from './drag-drop.component'
 
 @Component({
   selector: 'app-add-company',
@@ -19,12 +14,12 @@ export class AddCompanyComponent implements OnInit {
 
   constructor(private router: Router, private companyService: CompanyService) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
+  @ViewChild(DragDropComponent, {static: false})
+  private dropbox: DragDropComponent;
 
   addCompany() {
-
+    this.company["picURLs"] = this.dropbox.getImageSet();
     this.companyService.addCompany(this.company)
       .subscribe(data => {
         this.router.navigate(['']);

@@ -13,7 +13,6 @@ export class Company {
     durationDate?: Date,
     author?: User,
     categories?: String[],
-    mainPicURL?: String,
-    extraPicURLs?: String[]
+    picURLs?: String[]
   )
 }
