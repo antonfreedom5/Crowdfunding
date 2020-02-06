@@ -3,6 +3,12 @@ import { Router } from '@angular/router';
 import { CompanyService } from '../_services/company.service';
 import { Company } from '../Model/Company';
 
+const cloudName = 'dwvirsr0i';
+const unsignedUploadPreset = 'vgffszgq';
+let fileSelect;
+let fileElem;
+let urlSelect;
+
 @Component({
   selector: 'app-add-company',
   templateUrl: './add-company.component.html'
@@ -11,17 +17,17 @@ export class AddCompanyComponent implements OnInit {
 
   company: Company = new Company();
 
-  constructor(private router: Router, private service: CompanyService) { }
+  constructor(private router: Router, private companyService: CompanyService) { }
 
   ngOnInit() {
+
   }
 
   addCompany() {
-    this.service.addCompany(this.company)
+
+    this.companyService.addCompany(this.company)
       .subscribe(data => {
-        alert('Se Agrego con Exito...!!!');
         this.router.navigate(['']);
       });
   }
-
 }

@@ -13,9 +13,6 @@ import java.util.List;
 public class CompanyService {
 
     @Autowired
-    private ImageService imageService;
-
-    @Autowired
     private CompanyRepository companyRepository;
 
     @Autowired
@@ -34,11 +31,7 @@ public class CompanyService {
     }
 
     public List<Company> findTop3ByRating() {
-        List<Company> topCompanies = companyRepository.findTop3ByOrderByRatingDesc();
-        for (Company company : topCompanies) {
-            company.setUrls(imageService.getUrlsOfCompany(company));
-        }
-        return topCompanies;
+        return companyRepository.findTop3ByOrderByRatingDesc();
     }
 
     public void deleteCompany(Long id) {
@@ -57,6 +50,8 @@ public class CompanyService {
         companyToEdit.setDurationDate(company.getDurationDate());
         companyToEdit.setShortDisc(company.getShortDisc());
         companyToEdit.setFullDisc(company.getFullDisc());
+        companyToEdit.setMainPicURL(company.getMainPicURL());
+        companyToEdit.setExtraPicURLs(company.getExtraPicURLs());
     }
 
     public void deleteListOfCompanies(List<Company> companies) {

@@ -21,9 +21,6 @@ public class CompanyController {
     CompanyService companyService;
 
     @Autowired
-    ImageService imageService;
-
-    @Autowired
     CloudinaryService cloudinaryService;
 
     @Autowired

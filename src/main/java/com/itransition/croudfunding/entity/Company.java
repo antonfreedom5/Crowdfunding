@@ -30,6 +30,12 @@ public class Company {
     @Column(length = 1000000)
     private String fullDisc;
 
+    private String mainPicURL;
+
+    @ElementCollection(targetClass = String.class)
+    @CollectionTable(name = "company_image", joinColumns = @JoinColumn(name = "company"))
+    private List<String> extraPicURLs;
+
     private String videoLink;
 
     private Date durationDate;
@@ -47,9 +53,6 @@ public class Company {
     @CollectionTable(name = "company_category", joinColumns = @JoinColumn(name = "company"))
     @Enumerated(EnumType.STRING)
     private Set<Categories> categories;
-
-    @Transient
-    private List<String> urls;
 
     public Company(String companyName, int goal, String shortDisc, String fullDisc, String videoLink, Date durationDate, User author) {
         this.companyName = companyName;
