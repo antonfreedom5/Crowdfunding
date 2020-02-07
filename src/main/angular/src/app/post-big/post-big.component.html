@@ -1,6 +1,6 @@
 <div class="container">
     <div class="card bg-dark text-white m-3" *ngFor="let company of companies" >
-      <img class="card-img img-thumbnail" src="{{company.picURLs}}">
+      <img class="card-img img-thumbnail" src="{{company.picURLs[0]}}">
       <div class="card-img-overlay">
         <h5 class="card-title"><a href="/company/{{company.id}}">{{company.companyName}}</a></h5>
         <p class="card-text">{{company.shortDisc}}</p>

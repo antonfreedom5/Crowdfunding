@@ -26,7 +26,6 @@ export class AddCompanyComponent implements OnInit {
     this.company["picURLs"] = this.dropbox.getImageSet();
     this.companyService.addCompany(this.company, this.cat)
       .subscribe(data => {
-        alert('Se Agrego con Exito...!!!');
         this.router.navigate(['']);
       });
   }

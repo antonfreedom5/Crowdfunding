@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-sm mt-4" *ngFor="let company of companies">
       <div class="card" style="width: 18rem;" >
-        <img class="card-img-top" src="{{company.picURLs}}" alt="Card image cap">
+        <img class="card-img-top" src="{{company.picURLs[0]}}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><a href="/company/{{company.id}}">{{company.companyName}}</a></h5>
         <p class="card-text">{{company.shortDisc}}</p>
         <p class="card-text">{{company.categories}}</p>
-        <a href="/company/{{company.id}}" class="btn btn-primary">Go somewhere</a>
+        <a href="/company/{{company.id}}" class="btn btn-primary">See more</a>
       </div>
       </div>
     </div>

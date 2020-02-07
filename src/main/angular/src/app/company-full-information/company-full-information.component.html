@@ -2,7 +2,7 @@
   <h2 class="m-3">{{companies.companyName}}</h2>
   <div class="row">
     <div class="col-xs-6">
-      <img src="{{companies.picURLs}}" alt="" class="img-responsive pull-right width-40-pct rounded">
+      <img src="{{companies.picURLs[0]}}" alt="" class="img-responsive pull-right width-40-pct rounded">
       <div class="alert alert-secondary visible-xs">
         {{companies.fullDisc}}
       </div>
@@ -16,5 +16,8 @@
       <input type="hidden" [(ngModel)]="companies.author.username" name="userC">
       <h4 *ngIf="userAdmin"><a [routerLink]= "['../../company-edit/', id]">Edit</a></h4>
     </div>
+  </div>
+  <div>
+
   </div>
 </div>
