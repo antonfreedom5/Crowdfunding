@@ -13,10 +13,10 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PostBigComponent } from './post-big/post-big.component';
 import {AddCompanyComponent} from './add-company/add-company.component';
-import { DragDropComponent } from './add-company/drag-drop.component';
 import {AllCompaniesComponent} from './all-companies/all-companies.component';
 import {PostSmallComponent} from './post-small/post-small.component';
 import { CompanyFullInformationComponent } from './company-full-information/company-full-information.component';
+import {DragAndDropComponent} from './drag-and-drop/drag-and-drop.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
@@ -32,7 +32,7 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
     PostBigComponent,
     PostSmallComponent,
     AddCompanyComponent,
-    DragDropComponent,
+    DragAndDropComponent,
     AllCompaniesComponent,
     CompanyFullInformationComponent,
     CompanyEditComponent,

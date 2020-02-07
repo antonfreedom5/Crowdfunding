@@ -17,13 +17,11 @@ export class CompanyFullInformationComponent implements OnInit {
 
   constructor(private companyService: CompanyService, private route: ActivatedRoute, private token: TokenStorageService) {
     this.id = route.snapshot.paramMap.get('id');
-
   }
 
   ngOnInit() {
         this.companyService.getCompanyById(this.id).subscribe((data) => this.companies = data);
-
-        if (this.user.roles.includes('ROLE_ADMIN')) {
+        if (this.user.roles.includes('ADMIN')) {
           this.userAdmin = true;
         }
   }

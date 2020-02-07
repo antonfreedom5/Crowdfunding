@@ -2,10 +2,11 @@
   <div class="row">
     <div class="col-sm mt-4" *ngFor="let company of companies">
       <div class="card" style="width: 18rem;" >
-        <img class="card-img-top" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARsAAACyCAMAAABFl5uBAAAAUVBMVEV3d3d0dHRycnLY2Njh4eHd3d2ZmZlubm7b29uDg4PT09O5ubl6enrOzs6tra3Hx8ezs7OKioqlpaWdnZ2Hh4fBwcGQkJCwsLChoaFqamrExMQVK/rSAAADF0lEQVR4nO3X247jKBRGYQPGGAw+4GB78v4POhs71V2tllp9E0XjWd9FyqFIFH4BG5oGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgk5TW6vWkvp6+NX7vqdRf9bsNtY1z9ro++R9PTbfvXaN+67nUJr3keYz1Sbl13pfbhhOLbds2ZN3E0chTWnWjHrXRll9HLa2mkxadQ/1EF6XlKf36MX7qx79XnCWNx2BDp5c+5Mdsp035+rpNdtTfeuql2JqNOoLJy9ynRbliy3YEu33s57+VD2ZTyg92jruddZ0bWW9BAlKdSdu1m9TXmIM9s9GzlQWlS7tp6eGVzvZ5z4kTn0UmRxztEGc7O+WLGfVqd6ddE2UCpVz/m8a4pX4sP7Jp3CDZ7PIp+Y4Q/KeH8R619Cj/7He9ycJSWSaLH8yYn9O8aLWasLrDpE5teXHDtaZM6Fw2Qd63h2Tjkr1pNlUc2/RQ8ah7bNqcrKskW3GbOi0TquRkZH+WoqXPbBq3Xv0aWVd1t9ZTe+NssjWHbrZk0xRs8Y/SysLypS1eLaU3dr/2kysb1aU2SL+nd69snrfNRkmpqtE8Jjv/43yxs6QySCHfUliVliTK46rlVzaxtHt08jrHu88bJSOUAt6opRYdSaQvfujH2lDMoeoskaJ1dj2zkQap3o1eQ5Lqls/9pr9pNvEpW0fdThYz1W15M5PPdq/zZgqHXp4m9MM19lc2oWZT//ixr3XKh3DTGj63k9dyUVKPJCcbVau564xMFTm9TIsceoZ16vN5CLzWlJ+sJKR3mV9bqOeb3ZZ7ZuOtbMAppWmvO/KQiw2rlnNyGmc5/rpVyvdVw5uvbPRoar/ebHLIsSnPfb98ehRvEXNrK7k86fM+ZdNR71ND30qtits5ZeRUWB7NVzaNuu5Ta11OtV84Pj2KN1HuRVaNbrq8nZcEpf2xyo1caXdOGHddrK53jY5dfl3S3ZI7ddt7+C/Uz3H+ccQ/+6n/STIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/Sf8C23QhnyckokQAAAAASUVORK5CYII=" alt="Card image cap">
+        <img class="card-img-top" src="{{company.picURLs}}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><a href="/company/{{company.id}}">{{company.companyName}}</a></h5>
         <p class="card-text">{{company.shortDisc}}</p>
+        <p class="card-text">{{company.categories}}</p>
         <a href="/company/{{company.id}}" class="btn btn-primary">Go somewhere</a>
       </div>
       </div>

@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'admin', component: BoardAdminComponent },
   { path: 'addcompany', component: AddCompanyComponent},
   { path: 'allcompanies', component: AllCompaniesComponent},
+  { path: 'companies/:category', component: AllCompaniesComponent},
   { path: 'company/:id' , component: CompanyFullInformationComponent},
   { path: 'company-edit/:editid', component: CompanyEditComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }

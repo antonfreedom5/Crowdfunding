@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,7 +51,7 @@ public class Company {
     @ElementCollection(targetClass = Categories.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "company_category", joinColumns = @JoinColumn(name = "company"))
     @Enumerated(EnumType.STRING)
-    private Set<Categories> categories;
+    private Set<Categories> categories = new HashSet<>();
 
     public Company(String companyName, int goal, String shortDisc, String fullDisc, String videoLink, Date durationDate, User author) {
         this.companyName = companyName;

@@ -34,14 +34,14 @@ export class ImageUploadService {
       }
     }
 
-    dropbox.addEventListener("dragenter", dragenter, false);
-    dropbox.addEventListener("dragover", dragover, false);
-    dropbox.addEventListener("drop", drop, false);
+    dropbox.addEventListener('dragenter', dragenter, false);
+    dropbox.addEventListener('dragover', dragover, false);
+    dropbox.addEventListener('drop', drop, false);
   }
 
   public processDirectSelect(fileSelectButton, fileInputElement) {
     if (fileSelectButton) {
-      fileSelectButton.addEventListener("click", function (e) {
+      fileSelectButton.addEventListener('click', function (e) {
         if (fileInputElement) {
           fileInputElement.click();
         }
@@ -55,7 +55,6 @@ export class ImageUploadService {
       this.uploadFile(files[i]); // call the function to upload the file
     }
   }
-
 
   public uploadFile(file) {
     var url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;

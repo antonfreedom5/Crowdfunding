@@ -1,5 +1,6 @@
 package com.itransition.croudfunding.controller;
 
+import com.itransition.croudfunding.entity.Categories;
 import com.itransition.croudfunding.entity.Company;
 import com.itransition.croudfunding.entity.User;
 import com.itransition.croudfunding.service.*;
@@ -8,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -32,8 +33,7 @@ public class CompanyController {
     }
 
     @GetMapping("/allcompanies")
-    public List<Company> getAllCompanies(){
-        return companyService.getAll();
+    public List<Company> getAllCompanies(){ return companyService.getAll();
     }
 
     @GetMapping("/company/{id}")
@@ -41,10 +41,21 @@ public class CompanyController {
         return companyService.findCompanyById(id);
     }
 
-    @PostMapping("/addcompany")
-    public @ResponseBody void addCompany(@RequestBody Company company) {
+    @GetMapping("/allcategories")
+    public Categories[] getAllCategories(){
+        return Categories.values();
+    }
+
+    @GetMapping("companies/{category}")
+    public List<Company> getCompaniesByCategory(@PathVariable String category){
+        return companyService.findByCategories(Categories.valueOf(category));
+    }
+
+    @PostMapping("/addcompany/{category}")
+    public @ResponseBody void addCompany(@RequestBody Company company, @PathVariable String category) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User author = userService.findUserByUsername(authentication.getName());
+        company.setCategories(new HashSet<Categories>(Collections.singleton(Categories.valueOf(category))));
         company.setAuthor(author);
        companyService.saveCompany(company);
     }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Company} from '../Model/Company';
+import { Observable } from 'rxjs';
+import { Company } from '../Model/Company';
 
 const API_URL = 'http://localhost:8090/';
 
@@ -24,8 +24,16 @@ export class CompanyService {
     return this.http.get<Company[]>(API_URL + 'allcompanies');
   }
 
-  public addCompany(company: Company) {
-    return this.http.post<Company>(API_URL + 'addcompany', company);
+  public getCompaniesByCategory(category: String): Observable<Company[]> {
+    return this.http.get<Company[]>(API_URL + 'company/' + category);
+  }
+
+  public getAllCategories(): Observable<any> {
+    return this.http.get(API_URL + 'allcategories');
+  }
+
+  public addCompany(company: Company, category: String) {
+    return this.http.post<Company>(API_URL + 'addcompany/' + category, company);
   }
 
   public editCompany(company: Company, id: number) {

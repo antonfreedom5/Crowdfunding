@@ -1,6 +1,6 @@
 <div class="container">
     <div class="card bg-dark text-white m-3" *ngFor="let company of companies" >
-      <img class="card-img img-thumbnail" src="https://xboxtavern.com/wp-content/uploads/2017/04/megamenu-bg-780x270.jpg">
+      <img class="card-img img-thumbnail" src="{{company.picURLs}}">
       <div class="card-img-overlay">
         <h5 class="card-title"><a href="/company/{{company.id}}">{{company.companyName}}</a></h5>
         <p class="card-text">{{company.shortDisc}}</p>
