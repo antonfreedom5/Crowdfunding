@@ -1,0 +1,14 @@
+<div id="dropbox">
+  <form class="my-form">
+    <div class="form_line">
+      <h4>Drag and Drop</h4>
+      <div class="form_controls">
+        <div class="upload_button_holder">
+          <input type="file" id="fileElem" multiple accept="image/*" style="display:none" (change)="handleFiles($event.target.files)">
+          <a href="" id="fileSelect">Select files</a>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div id="gallery"></div>
+</div>
