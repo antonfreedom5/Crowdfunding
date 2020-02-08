@@ -11,7 +11,7 @@ import { TokenStorageService } from '../_services/token-storage.service';
 export class CompanyFullInformationComponent implements OnInit {
 
   private id: any;
-  companies: Company;
+  company: Company;
   user = this.token.getUser();
   userAdmin = false;
 
@@ -20,7 +20,7 @@ export class CompanyFullInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.companyService.getCompanyById(this.id).subscribe((data) => this.companies = data);
+        this.companyService.getCompanyById(this.id).subscribe((data) => this.company = data);
         if (this.user.roles.includes('ADMIN')) {
           this.userAdmin = true;
         }
