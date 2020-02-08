@@ -18,14 +18,17 @@ export class WebSocketAPI {
     this.stompClient = Stomp.over(ws);
     const _this = this;
     _this.stompClient.connect({}, function (frame) {
-      _this.stompClient.subscribe(_this.topic, function (sdkEvent) {
-        _this.onMessageReceived(sdkEvent);
-      });
+      _this.stompClient.subscribe(_this.topic, onMessageReceived);
+      _this.stompClient.subscribe("/user/" + _this.username + "/reply", onMessageReceived);
       _this.stompClient.send("/app/comments.addUser",
         {},
         JSON.stringify({sender: _this.username, type: 'JOIN'})
       );
     }, this.errorCallBack);
+
+    function onMessageReceived(message) {
+      _this.onMessageReceived(message);
+    }
   };
 
   _disconnect() {
