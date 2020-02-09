@@ -3,6 +3,7 @@ import {CompanyService} from '../_services/company.service';
 import {Company} from '../Model/Company';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { TokenStorageService } from '../_services/token-storage.service';
+import {User} from "../Model/User";
 
 @Component({
   selector: 'app-company-full-information',
@@ -12,11 +13,13 @@ export class CompanyFullInformationComponent implements OnInit {
 
   private id: any;
   company: Company;
-  user = this.token.getUser();
+  user: any;
   userAdmin = false;
 
   constructor(private companyService: CompanyService, private route: ActivatedRoute, private token: TokenStorageService) {
     this.id = route.snapshot.paramMap.get('id');
+    this.user = this.token.getUser();
+    console.log("token:" + token);
   }
 
   ngOnInit() {
