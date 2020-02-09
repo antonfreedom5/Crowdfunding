@@ -39,4 +39,12 @@ export class CompanyService {
   public editCompany(company: Company, id: number) {
     return this.http.post<Company>(API_URL + 'company-edit/' + id, company);
   }
+
+  public setRating(id: number, rating: number): Observable<String> {
+    return this.http.post<String>(API_URL + 'rating/' + id, rating);
+  }
+
+  public deleteCompanyById(id: number) {
+    return this.http.delete<Company[]>(API_URL + 'company-delete/' + id);
+  }
 }

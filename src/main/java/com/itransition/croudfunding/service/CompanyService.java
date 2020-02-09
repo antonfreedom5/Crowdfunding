@@ -18,7 +18,8 @@ public class CompanyService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Company> getAll() { return companyRepository.findAll(); }
+    public List<Company> getAll() {
+        return companyRepository.findAll(); }
 
     public List<Company> deleteByAuthorId(Long id) {
         return companyRepository.deleteByAuthorId(id);

@@ -19,7 +19,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Short description</span>
         </div>
-        <textarea class="form-control" name="shortDesc" [(ngModel)]="company.shortDisc"></textarea>
+        <textarea class="form-control" name="shortDesc" maxlength="100" [(ngModel)]="company.shortDisc"></textarea>
       </div>
       <div id = "iDDQD" class="input-group mb-3">
         <div class="input-group-prepend">
@@ -51,6 +51,8 @@
         </div>
         <app-drag-and-drop></app-drag-and-drop>
       </div>
+      <div class="input-group mb-3">
       <button type="submit" class="btn btn-primary" (click)="addCompany()">Create company</button>
+      </div>
     </form>
 </div>

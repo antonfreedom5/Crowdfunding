@@ -9,9 +9,9 @@ import java.util.List;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
-
 
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);

@@ -4,7 +4,8 @@ import {CompanyService} from '../_services/company.service';
 
 @Component({
   selector: 'app-post-big',
-  templateUrl: './post-big.component.html'
+  templateUrl: './post-big.component.html',
+  styleUrls: ['./post-big.component.css']
 })
 export class PostBigComponent implements OnInit {
 

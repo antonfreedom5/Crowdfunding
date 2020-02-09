@@ -1,4 +1,5 @@
 import {User} from './User';
+import {OnInit} from '@angular/core';
 
 export class Company {
   id?: number;
@@ -12,6 +13,7 @@ export class Company {
   categories?: String[];
   picURLs?: String[];
   urls?: String[];
+  reached?: number;
   // @ts-ignore
   constructor(
     id?: number,
@@ -23,6 +25,7 @@ export class Company {
     durationDate?: Date,
     author?: User,
     categories?: String[],
-    picURLs?: String[]
+    picURLs?: String[],
+    reached?: number
   )
 }
