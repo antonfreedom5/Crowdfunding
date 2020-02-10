@@ -3,7 +3,7 @@
     <div class="col mt-5" *ngFor="let company of companies">
       <div class="card" style="width: 20rem; height: 415px; box-shadow: 0 0 10px rgba(0,0,0,0.5);" >
         <div class="item-box-blog-date bg-blue-ui white lead"> <span class="mon">{{company.categories}}</span> </div>
-        <a href="/company/{{company.id}}"><img class="card-img-top" src="{{company.picURLs}}" style="height: 200px; object-fit:cover;"></a>
+        <a href="/company/{{company.id}}"><img class="card-img-top" src="{{company.picURLs[0]}}" style="height: 200px; object-fit:cover;"></a>
       <div class="card-body">
         <h5 class="card-title lead"><a href="/company/{{company.id}}">{{company.companyName}}</a></h5>
         <p class="card-text">{{company.shortDisc}}</p>
