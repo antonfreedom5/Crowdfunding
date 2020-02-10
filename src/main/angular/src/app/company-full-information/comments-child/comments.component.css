@@ -221,6 +221,11 @@ button.accent {
   text-transform: uppercase;
 }
 
+#chat-page .chat-message i img {
+  width: 20px;
+  height: 20px;
+}
+
 #chat-page .chat-message span {
   color: #333;
   font-weight: 600;
