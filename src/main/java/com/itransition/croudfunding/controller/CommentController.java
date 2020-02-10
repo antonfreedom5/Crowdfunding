@@ -26,12 +26,13 @@ public class CommentController {
     }
 
     @MessageMapping("/comments.addUser")
-    @SendTo("/topic/public")
     public Comment addUser(@Payload Comment comment,
                                SimpMessageHeaderAccessor headerAccessor) {
+        System.out.println("in 'addUser', message:" + comment);
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", comment.getSender());
         for (Comment msg : commentService.findByCompanyID(comment.getCompanyID())) {
+            System.out.println("in for loop? msg: " + msg);
             messagingTemplate.convertAndSendToUser(comment.getSender(), "/reply", msg);
         }
         return comment;

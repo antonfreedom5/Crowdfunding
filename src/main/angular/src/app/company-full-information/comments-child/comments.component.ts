@@ -1,14 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { WebSocketAPI } from '../../util/WebSocketAPI';
-import {User} from "../../Model/User";
 import {Comment} from "../../Model/Comment";
 import {TokenStorageService} from "../../_services/token-storage.service";
+import {ActivatedRoute} from "@angular/router";
 
-let colors = [
-  '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-  '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
-];
 let webSocketAPI: WebSocketAPI;
+let token: TokenStorageService;
+let companyID: number;
 
 @Component({
   selector: 'comments-child',
@@ -16,18 +14,14 @@ let webSocketAPI: WebSocketAPI;
   styleUrls: ['./comments.component.css']
 })
 export class CommentsComponent implements OnInit {
-  messageForm = document.getElementById('messageForm');
-  messageInput = <HTMLInputElement>document.getElementById('message');
-  messageArea = document.querySelector('#messageArea');
-  @Input() companyID: number;
-  @Input() username: string;
 
-  constructor(private token: TokenStorageService) {
+  constructor(tokenStorage: TokenStorageService, private route: ActivatedRoute) {
+    token = tokenStorage;
+    companyID = parseInt(route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit() {
-    //this.user = this.token.getUser();
-    webSocketAPI = new WebSocketAPI(this, this.companyID, this.username);
+    webSocketAPI = new WebSocketAPI(this, companyID, token.getUser().username);
     webSocketAPI._connect();
     document.getElementById('messageForm').addEventListener('submit', this.sendMessage, true);
   }
@@ -37,11 +31,12 @@ export class CommentsComponent implements OnInit {
 
     if (messageContent.trim()) {
       let chatMessage = {
-        companyID: this.companyID,
-        sender: this.username,
+        companyID: companyID,
+        sender: token.getUser().username,
         content: messageContent,
         type: 'COMMENT'
       };
+      console.log("message: " + companyID);
       webSocketAPI._send(chatMessage);
       (<HTMLInputElement>document.getElementById('message')).value = '';
     }
@@ -57,7 +52,12 @@ export class CommentsComponent implements OnInit {
 
     let avatarElement = document.createElement('i');
     let img = new Image();
-    img.src = message.avatarURL ? message.avatarURL : "//ssl.gstatic.com/accounts/ui/avatar_2x.png";
+    img.src = message.avatarURL ? message.avatarURL : "https://pbs.twimg.com/profile_images/378800000017423279/1a6d6f295da9f97bb576ff486ed81389_400x400.png";
+    img.height = 70;
+    img.width = 70;
+    img.style.objectFit="cover";
+    img.style.borderRadius="70px";
+    img.style.marginRight="10px";
     avatarElement.appendChild(img);
 
     messageElement.appendChild(avatarElement);
@@ -82,8 +82,9 @@ export class CommentsComponent implements OnInit {
       element.appendChild(child);
       messageElement.appendChild(element);
     }
-    this.messageArea.appendChild(messageElement);
-    this.messageArea.scrollTop = this.messageArea.scrollHeight;
+    let messageArea = document.getElementById('messageArea');
+    messageArea.appendChild(messageElement);
+    messageArea.scrollTop = messageArea.scrollHeight;
   }
 
   private addLikeAndDislikeButtons(message, messageElement) {

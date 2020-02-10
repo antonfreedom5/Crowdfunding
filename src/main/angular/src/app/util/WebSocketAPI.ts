@@ -55,7 +55,7 @@ export class WebSocketAPI {
    * @param {*} message
    */
   _send(message) {
-    console.log("calling logout api via web socket");
+    console.log("calling 'send' api via web socket");
     this.stompClient.send("/app/comments.sendComment", {}, JSON.stringify(message));
   }
 

@@ -11,7 +11,6 @@ public enum Categories {
     Games,
     Music,
     Cinema,
-    Photo,
     Animals,
     Literature,
     Others
