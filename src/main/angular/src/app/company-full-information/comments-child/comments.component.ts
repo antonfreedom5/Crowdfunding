@@ -3,27 +3,50 @@ import { WebSocketAPI } from '../../util/WebSocketAPI';
 import {Comment} from "../../Model/Comment";
 import {TokenStorageService} from "../../_services/token-storage.service";
 import {ActivatedRoute} from "@angular/router";
+import {ImageUploadService} from "../../_services/image-upload.service";
 
 let webSocketAPI: WebSocketAPI;
 let token: TokenStorageService;
 let companyID: number;
+let uniqueAnonID: number = parseInt(String(+new Date() / 1000)) + Math.round(Math.random()*100000);
 
 @Component({
   selector: 'comments-child',
   templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.css']
+  styleUrls: ['./comments.component.css'],
+  providers: [ImageUploadService]
 })
 export class CommentsComponent implements OnInit {
 
-  constructor(tokenStorage: TokenStorageService, private route: ActivatedRoute) {
+  constructor(tokenStorage: TokenStorageService,
+              private route: ActivatedRoute,
+              private imageUploadService: ImageUploadService) {
     token = tokenStorage;
     companyID = parseInt(route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit() {
-    webSocketAPI = new WebSocketAPI(this, companyID, token.getUser().username);
-    webSocketAPI._connect();
-    document.getElementById('messageForm').addEventListener('submit', this.sendMessage, true);
+    if (!token.getUser()) {
+      webSocketAPI = new WebSocketAPI(this, companyID, ""+uniqueAnonID);
+      (<HTMLInputElement>document.getElementById('message')).value = 'Please, sign in to leave your comment';
+      (<HTMLInputElement>document.getElementById('message')).disabled=true;
+    } else {
+      webSocketAPI = new WebSocketAPI(this, companyID, token.getUser().username);
+      document.getElementById('messageForm').addEventListener('submit', this.sendMessage, true);
+      this.imageUploadService.setOnUploadedCallback(this.onImageUploadedCallback);
+      this.imageUploadService.processDropboxSelect(document.getElementById('messageArea'));
+    }
+      webSocketAPI._connect();
+  }
+
+  onImageUploadedCallback(url) {
+    let chatMessage = {
+      companyID: companyID,
+      sender: token.getUser().username,
+      content: url,
+      type: 'IMAGE'
+    };
+    webSocketAPI._send(chatMessage);
   }
 
   sendMessage(event) {
@@ -58,6 +81,7 @@ export class CommentsComponent implements OnInit {
     img.style.objectFit="cover";
     img.style.borderRadius="70px";
     img.style.marginRight="10px";
+    img.style.marginBottom="10px";
     avatarElement.appendChild(img);
 
     messageElement.appendChild(avatarElement);
@@ -68,7 +92,7 @@ export class CommentsComponent implements OnInit {
 
     messageElement.appendChild(usernameElement);
 
-    //this.addLikeAndDislikeButton(message, messageElement);
+    this.addLikeAndDislikeButtons(message, messageElement);
 
     if (message.type === 'IMAGE') {
       let img = new Image();
@@ -88,6 +112,23 @@ export class CommentsComponent implements OnInit {
   }
 
   private addLikeAndDislikeButtons(message, messageElement) {
-
+    let container = document.createElement('p');
+    this.addLikeButton(message, container);
+    container.append(`  :   ${message.peopleWhoLikedIDs.length}   `);
+    this.addDislikeButton(message, container);
+    messageElement.appendChild(container);
   }
+  addLikeButton(message, container) {
+    let button = document.createElement('a');
+    button.className="fa fa-thumbs-up";
+    button.style.cssText="font-size: 20px; cursor: pointer; user-select: none";
+    container.appendChild(button);
+  }
+  addDislikeButton(message, container) {
+    let button = document.createElement('a');
+    button.className="fa fa-thumbs-down";
+    button.style.cssText="font-size: 20px; cursor: pointer; user-select: none";
+    container.appendChild(button);
+  }
+
 }

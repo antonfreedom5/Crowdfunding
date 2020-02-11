@@ -32,7 +32,6 @@ public class CommentController {
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", comment.getSender());
         for (Comment msg : commentService.findByCompanyID(comment.getCompanyID())) {
-            System.out.println("in for loop? msg: " + msg);
             messagingTemplate.convertAndSendToUser(comment.getSender(), "/reply", msg);
         }
         return comment;

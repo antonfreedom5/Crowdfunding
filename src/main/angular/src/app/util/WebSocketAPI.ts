@@ -5,10 +5,10 @@ export class WebSocketAPI {
   webSocketEndPoint: string = 'http://localhost:8090/ws';
   companyID: number;
   stompClient: any;
-  component: any;
+  contextComponent: any;
   username: string;
   constructor(component: any, companyID: number, username: string) {
-    this.component = component;
+    this.contextComponent = component;
     this.companyID = companyID;
     this.username = username;
   }
@@ -61,11 +61,11 @@ export class WebSocketAPI {
 
   onMessageReceived(message) {
     console.log("Message Recieved from Server :: " + message);
-    this.component.handleMessage(JSON.parse(message.body));
+    this.contextComponent.handleMessage(JSON.parse(message.body));
   }
 
   onEditedMessageReceived(message) {
     console.log("Edited Message Recieved from Server :: " + message);
-    this.component.handleEditedMessage(JSON.parse(message.body));
+    this.contextComponent.handleEditedMessage(JSON.parse(message.body));
   }
 }

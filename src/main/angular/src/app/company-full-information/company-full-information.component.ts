@@ -13,7 +13,7 @@ import {DonateService} from '../_services/donate.service';
 export class CompanyFullInformationComponent implements OnInit {
 
   private id: any;
-  companies: Company;
+  company: Company;
   user = this.token.getUser();
   userAdmin = false;
   daysLeft: any;
@@ -32,11 +32,11 @@ export class CompanyFullInformationComponent implements OnInit {
 
   ngOnInit() {
         this.companyService.getCompanyById(this.id).subscribe((data) => {
-          this.companies = data;
+          this.company = data;
           // @ts-ignore
-          this.daysLeft = Math.round((Date.parse(this.companies.durationDate) - Date.parse(new Date())) / (60 * 60 * 24 * 1000));
-          this.percent = Math.round(this.companies.reached * 100 / this.companies.goal);
-          if (this.user.roles.includes('ADMIN') || this.companies.author.username === this.user.username) {
+          this.daysLeft = Math.round((Date.parse(this.company.durationDate) - Date.parse(new Date())) / (60 * 60 * 24 * 1000));
+          this.percent = Math.round(this.company.reached * 100 / this.company.goal);
+          if (this.user && (this.user.roles.includes('ADMIN') || this.company.author.username === this.user.username)) {
             this.userAdmin = true;
           }
         });
