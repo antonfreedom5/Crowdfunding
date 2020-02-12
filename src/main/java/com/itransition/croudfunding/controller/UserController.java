@@ -34,4 +34,17 @@ public class UserController {
         userService.deleteById(id);
         return userService.findAll();
     }
+
+    @PatchMapping("/revertActivationStatus")
+    public User revertActivationStatus(@RequestBody User user) {
+        User modified = userService.findById(user.getId());
+        modified.setActive(!modified.isActive());
+        userService.save(modified);
+
+    }
+
+    @PatchMapping("/makeAdmin")
+    public User makeAdmin(@RequestBody User user) {
+
+    }
 }

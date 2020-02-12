@@ -12,7 +12,6 @@ export class Company {
   author?: User;
   categories?: String[];
   picURLs?: String[];
-  urls?: String[];
   reached?: number;
   // @ts-ignore
   constructor(

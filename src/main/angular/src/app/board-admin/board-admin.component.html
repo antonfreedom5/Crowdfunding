@@ -15,7 +15,28 @@
         <td>{{user.username}}</td>
         <td>{{user.email}}</td>
         <td>{{user.roles}}</td>
-        <td class="text-center"><button class="btn btn-danger btn-xs" (click)="deleteUser(user.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button></td>
+        <td class="text-center">
+          <button class="btn btn-danger btn-xs" (click)="deleteUser(user.id)">
+            <span class="glyphicon glyphicon-remove"></span> Make admin
+          </button>
+        </td>
+        <td class="text-center" *ngIf="user.active;else unblock">
+          <button class="btn btn-danger btn-xs" (click)="deleteUser(user.id)">
+            <span class="glyphicon glyphicon-remove"></span> Block
+          </button>
+        </td>
+        <ng-template #unblock>
+          <td class="text-center">
+            <button class="btn btn-danger btn-xs" (click)="deleteUser(user.id)">
+              <span class="glyphicon glyphicon-remove"></span> Unblock
+            </button>
+          </td>
+        </ng-template>
+        <td class="text-center">
+          <button class="btn btn-danger btn-xs" (click)="deleteUser(user.id)">
+            <span class="glyphicon glyphicon-remove"></span> Delete
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>

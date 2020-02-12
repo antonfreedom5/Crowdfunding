@@ -13,11 +13,22 @@ export class BoardAdminComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((data) => this.users = data);
+    this.userService.getUsers().subscribe((data) => {
+      this.users = data;
+      console.log(this.users)
+    });
   }
 
   public deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe((data) => this.users = data);
+  }
+
+  public revertUserActivation(id: number) {
+
+  }
+
+  public makeUserAdmin(id: number) {
+
   }
 }
 
