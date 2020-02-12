@@ -19,7 +19,7 @@ export class WebSocketAPI {
     const _this = this;
     _this.stompClient.connect({}, function (frame) {
       _this.stompClient.subscribe("/topic/" + _this.companyID, onMessageReceived);
-      _this.stompClient.subscribe("/topic/public", onMessageReceived);
+      _this.stompClient.subscribe("/topic/edited/" + _this.companyID, onEditedMessageReceived);
       _this.stompClient.subscribe("/user/" + _this.username + "/reply", onMessageReceived);
       _this.stompClient.send("/app/comments.addUser",
         {},
@@ -42,7 +42,6 @@ export class WebSocketAPI {
     console.log("Disconnected");
   }
 
-  // on error, schedule a reconnection attempt
   errorCallBack(error) {
     console.log("errorCallBack -> " + error);
     setTimeout(() => {
@@ -50,13 +49,14 @@ export class WebSocketAPI {
     }, 5000);
   }
 
-  /**
-   * Send message to sever via web socket
-   * @param {*} message
-   */
   _send(message) {
-    console.log("calling 'send' api via web socket");
+    console.log("Calling 'send' via web socket");
     this.stompClient.send("/app/comments.sendComment", {}, JSON.stringify(message));
+  }
+
+  _sendEdited(message) {
+    console.log("Calling 'sendEdited' via web socket");
+    this.stompClient.send("/app/comments.editComment", {}, JSON.stringify(message));
   }
 
   onMessageReceived(message) {

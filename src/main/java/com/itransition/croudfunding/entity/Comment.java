@@ -25,11 +25,11 @@ public class Comment {
 
     private String avatarURL;
 
-    @ElementCollection(targetClass = Integer.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Long.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_who_liked_comment", joinColumns = @JoinColumn(name = "comment"))
-    private Set<Integer> peopleWhoLikedIDs = new HashSet<>();
+    private Set<Long> peopleWhoLikedIDs = new HashSet<>();
 
-    @ElementCollection(targetClass = Integer.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Long.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "users_who_disliked_comment", joinColumns = @JoinColumn(name = "comment"))
-    private Set<Integer> peopleWhoDislikedIDs = new HashSet<>();
+    private Set<Long> peopleWhoDislikedIDs = new HashSet<>();
 }

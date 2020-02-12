@@ -1,8 +1,10 @@
 package com.itransition.croudfunding.entity;
 
 public enum CommentType {
-    COMMENT,
     JOIN,
+    COMMENT,
+    EDITED,
     IMAGE,
-    EDITED
+    LIKE,
+    DISLIKE
 }

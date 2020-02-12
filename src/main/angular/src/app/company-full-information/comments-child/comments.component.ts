@@ -27,11 +27,13 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() {
     if (!token.getUser()) {
-      webSocketAPI = new WebSocketAPI(this, companyID, ""+uniqueAnonID);
+      let username = ""+uniqueAnonID;
+      webSocketAPI = new WebSocketAPI(this, companyID, username);
       (<HTMLInputElement>document.getElementById('message')).value = 'Please, sign in to leave your comment';
       (<HTMLInputElement>document.getElementById('message')).disabled=true;
     } else {
-      webSocketAPI = new WebSocketAPI(this, companyID, token.getUser().username);
+      let username = token.getUser().username;
+      webSocketAPI = new WebSocketAPI(this, companyID, username);
       document.getElementById('messageForm').addEventListener('submit', this.sendMessage, true);
       this.imageUploadService.setOnUploadedCallback(this.onImageUploadedCallback);
       this.imageUploadService.processDropboxSelect(document.getElementById('messageArea'));
@@ -67,7 +69,12 @@ export class CommentsComponent implements OnInit {
   }
 
   handleMessage(message: Comment) {
-    if (message.type === 'JOIN') return;
+    console.log("received message: " + message);
+    if (message.type === 'EDITED') {
+      this.handleEditedMessage(message);
+      return;
+    }
+
     let messageElement = document.createElement('li');
     messageElement.setAttribute('id', String(message.id));
 
@@ -111,24 +118,75 @@ export class CommentsComponent implements OnInit {
     messageArea.scrollTop = messageArea.scrollHeight;
   }
 
+  handleEditedMessage(message: Comment) {
+    console.log("calling 'handleEditedMEssage'!!!!!!");
+    let messageArea = document.getElementById('messageArea');
+    let messageElements = messageArea.children;
+    for (let i = 0; i < messageElements.length; i++) {
+      if (messageElements[i].getAttribute("id") == String(message.id)) {
+        let messageElement = messageElements[i];
+        let buttonsContainer = messageElement.children[2];
+        buttonsContainer.children[0].removeEventListener('click', this.onLikeClicked);
+        buttonsContainer.children[1].innerHTML = ` :    ${message.peopleWhoLikedIDs.length}   `;
+        buttonsContainer.children[2].removeEventListener('click', this.onDislikeClicked);
+        buttonsContainer.children[3].innerHTML = ` :    ${message.peopleWhoDislikedIDs.length}   `;
+      }
+    }
+  }
+
   private addLikeAndDislikeButtons(message, messageElement) {
     let container = document.createElement('p');
+    container.setAttribute('id', message.id);
     this.addLikeButton(message, container);
-    container.append(`  :   ${message.peopleWhoLikedIDs.length}   `);
+    let likesContainer = document.createElement('span');
+    likesContainer.append(` :    ${message.peopleWhoLikedIDs.length}   `);
+    container.appendChild(likesContainer);
     this.addDislikeButton(message, container);
+    let dislikesContainer = document.createElement('span');
+    dislikesContainer.append(` :    ${message.peopleWhoDislikedIDs.length}   `);
+    container.appendChild(dislikesContainer);
     messageElement.appendChild(container);
   }
+
   addLikeButton(message, container) {
     let button = document.createElement('a');
     button.className="fa fa-thumbs-up";
     button.style.cssText="font-size: 20px; cursor: pointer; user-select: none";
+    if (token.getUser() && !(message.peopleWhoLikedIDs.includes(token.getUser().id)
+      || message.peopleWhoDislikedIDs.includes(token.getUser().id) )) {
+      button.addEventListener('click', this.onLikeClicked);
+    }
     container.appendChild(button);
   }
+  onLikeClicked(event) {
+    event.preventDefault();
+    let source = event.target;
+    let originalCommentID = source.parentElement.getAttribute('id');
+    let editedMessage = {
+      id: originalCommentID, sender: token.getUser().username, type: 'LIKE'
+    };
+    webSocketAPI._sendEdited(editedMessage);
+  }
+
   addDislikeButton(message, container) {
     let button = document.createElement('a');
     button.className="fa fa-thumbs-down";
     button.style.cssText="font-size: 20px; cursor: pointer; user-select: none";
+    if (token.getUser() && !(message.peopleWhoLikedIDs.includes(token.getUser().id)
+      || message.peopleWhoDislikedIDs.includes(token.getUser().id) )) {
+      button.addEventListener('click', this.onDislikeClicked);
+    }
     container.appendChild(button);
   }
+  onDislikeClicked(event) {
+    event.preventDefault();
+    let source = event.target;
+    let originalCommentID = source.parentElement.getAttribute('id');
+    let editedMessage = {
+      id: originalCommentID, sender: token.getUser().username, type: 'DISLIKE'
+    };
+    webSocketAPI._sendEdited(editedMessage);
+  }
+
 
 }
