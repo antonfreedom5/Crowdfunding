@@ -1,5 +1,4 @@
 import {User} from './User';
-import {OnInit} from '@angular/core';
 
 export class Company {
   id?: number;

@@ -24,10 +24,6 @@ export class CompanyService {
     return this.http.get<Company[]>(API_URL + 'allcompanies');
   }
 
-  public getCompaniesByCategory(category: String): Observable<Company[]> {
-    return this.http.get<Company[]>(API_URL + 'company/' + category);
-  }
-
   public getAllCategories(): Observable<any> {
     return this.http.get(API_URL + 'allcategories');
   }
@@ -40,8 +36,8 @@ export class CompanyService {
     return this.http.post<Company>(API_URL + 'company-edit/' + id, company);
   }
 
-  public setRating(id: number, rating: number): Observable<String> {
-    return this.http.post<String>(API_URL + 'rating/' + id, rating);
+  public setRating(id: number, rating: number): Observable<string> {
+    return this.http.post<string>(API_URL + 'rating/' + id, rating);
   }
 
   public deleteCompanyById(id: number) {

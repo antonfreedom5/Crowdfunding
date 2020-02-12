@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +19,7 @@ import { CompanyFullInformationComponent } from './company-full-information/comp
 import { DragAndDropComponent } from './drag-and-drop/drag-and-drop.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
+import {BonusComponent} from './bonus/bonus.component';
 import { CommentsComponent } from './company-full-information/comments-child/comments.component';
 
 @NgModule({
@@ -37,6 +38,7 @@ import { CommentsComponent } from './company-full-information/comments-child/com
     CompanyFullInformationComponent,
     CompanyEditComponent,
     CommentsComponent,
+    BonusComponent
   ],
   imports: [
     BrowserModule,

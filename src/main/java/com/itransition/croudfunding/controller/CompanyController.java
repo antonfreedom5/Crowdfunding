@@ -1,12 +1,8 @@
 package com.itransition.croudfunding.controller;
 
-import com.itransition.croudfunding.entity.Categories;
-import com.itransition.croudfunding.entity.Company;
-import com.itransition.croudfunding.entity.Rating;
-import com.itransition.croudfunding.entity.User;
+import com.itransition.croudfunding.entity.*;
 import com.itransition.croudfunding.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +27,9 @@ public class CompanyController {
     RatingService ratingService;
 
     @Autowired
+    BonusService bonusService;
+
+    @Autowired
     private YouTubeService youTubeService;
 
     @GetMapping("/")
@@ -44,17 +43,16 @@ public class CompanyController {
 
     @GetMapping("/company/{id}")
     public Company getCompanyById(@PathVariable Long id){
+        Company company = companyService.findCompanyById(id);
+        String videoLink = company.getVideoLink();
+        company.setVideoLink(youTubeService.adaptLink(videoLink));
+        companyService.saveCompany(company);
         return companyService.findCompanyById(id);
     }
 
     @GetMapping("/allcategories")
     public Categories[] getAllCategories(){
         return Categories.values();
-    }
-
-    @GetMapping("companies/{category}")
-    public List<Company> getCompaniesByCategory(@PathVariable String category){
-        return companyService.findByCategories(Categories.valueOf(category));
     }
 
     @PostMapping("/addcompany/{category}")

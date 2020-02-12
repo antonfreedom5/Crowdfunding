@@ -15,9 +15,6 @@ public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     public List<Company> getAll() {
         return companyRepository.findAll(); }
 

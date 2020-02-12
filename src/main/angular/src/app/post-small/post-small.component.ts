@@ -9,11 +9,26 @@ import {CompanyService} from '../_services/company.service';
 })
 export class PostSmallComponent implements OnInit {
 
-  companies: Company[] = [];
+  specifiedCompanies: Company[] = [];
+  categories: string[] = [];
+  allCompanies: Company[] = [];
 
-  constructor(private companyService: CompanyService) {}
+  constructor(private companyService: CompanyService) {
+  }
 
   ngOnInit() {
-    this.companyService.getAllCompanies().subscribe((data) => this.companies = data);
+    this.companyService.getAllCompanies().subscribe((data) => {
+      this.allCompanies = data;
+      this.specifiedCompanies = data;
+    });
+    this.companyService.getAllCategories().subscribe((category) => this.categories = category);
+  }
+
+  public filter(category: string) {
+    if (category) {
+      this.specifiedCompanies = this.allCompanies.filter(company => company.categories.includes(category));
+    } else {
+      this.specifiedCompanies = this.allCompanies.slice();
+    }
   }
 }

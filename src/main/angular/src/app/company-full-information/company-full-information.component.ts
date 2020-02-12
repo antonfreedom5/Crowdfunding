@@ -4,6 +4,8 @@ import {Company} from '../Model/Company';
 import {Router, ActivatedRoute, ParamMap, Data} from '@angular/router';
 import { TokenStorageService } from '../_services/token-storage.service';
 import {DonateService} from '../_services/donate.service';
+import {Bonus} from '../Model/Bonus';
+import {BonusService} from '../_services/bonus.service';
 
 @Component({
   selector: 'app-company-full-information',
@@ -12,8 +14,9 @@ import {DonateService} from '../_services/donate.service';
 })
 export class CompanyFullInformationComponent implements OnInit {
 
-  private id: any;
   company: Company;
+  id: any;
+  companies: Company;
   user = this.token.getUser();
   userAdmin = false;
   daysLeft: any;
@@ -21,16 +24,22 @@ export class CompanyFullInformationComponent implements OnInit {
   messageDonate: String;
   sumDonate: number;
   percent: number;
+  // @ts-ignore
+  bonus: Bonus = new Bonus();
+  messageAddBonus: string;
 
   constructor(private companyService: CompanyService,
               private route: ActivatedRoute,
               private token: TokenStorageService,
               private rout: Router,
-              private donateService: DonateService) {
+              private donateService: DonateService,
+              private bonusService: BonusService) {
     this.id = route.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {
+         this.companyService.getCompanyById(this.id).subscribe((data) => {
+          this.companies = data;
         this.companyService.getCompanyById(this.id).subscribe((data) => {
           this.company = data;
           // @ts-ignore
@@ -63,5 +72,13 @@ export class CompanyFullInformationComponent implements OnInit {
     this.companyService.deleteCompanyById(this.id).subscribe(data => {
       this.rout.navigate(['allcompanies']);
     });
+  }
+
+  addBonus() {
+    this.bonusService.addBonus(this.id, this.bonus)
+      .subscribe(data => {
+        this.messageAddBonus = 'Bonus added';
+        this.rout.navigate(['company/', this.id]);
+      });
   }
 }

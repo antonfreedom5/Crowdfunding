@@ -1,6 +1,12 @@
 <div class="container">
+  <ul class="nav nav-pills nav-fill" >
+    <li class="nav-item"><a class="nav-link" (click)="filter(null)">Show All</a></li>
+    <li class="nav-item" *ngFor="let category of categories">
+      <a class="nav-link" (click)="filter(category)">{{category}}</a>
+    </li>
+  </ul>
   <div class="row">
-    <div class="col mt-5" *ngFor="let company of companies">
+    <div class="col mt-5 mb-5" *ngFor="let company of specifiedCompanies">
       <div class="card" style="width: 20rem; height: 415px; box-shadow: 0 0 10px rgba(0,0,0,0.5);" >
         <div class="item-box-blog-date bg-blue-ui white lead"> <span class="mon">{{company.categories}}</span> </div>
         <a href="/company/{{company.id}}"><img class="card-img-top" src="{{company.picURLs[0]}}" style="height: 200px; object-fit:cover;"></a>
@@ -18,7 +24,7 @@
           <div class="row">
               <div class="col text-center">
                 <p class="text-muted">Percent</p>
-                <h5 class="lead">{{(company.reached*100/company.goal).toFixed()}}</h5>
+                <h5 class="lead">{{(company.reached*100/company.goal).toFixed()}}%</h5>
               </div>
             <div class="col text-center">
               <p class="text-muted">Goal</p>

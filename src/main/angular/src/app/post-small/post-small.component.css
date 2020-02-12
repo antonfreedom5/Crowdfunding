@@ -48,3 +48,12 @@ h5 a:hover{
 .item-box-blog-data p i {
   font-size: 12px;
 }
+
+li{
+  color: #343a40;
+}
+
+li:hover{
+  cursor: pointer;
+  color: #3d5773;
+}

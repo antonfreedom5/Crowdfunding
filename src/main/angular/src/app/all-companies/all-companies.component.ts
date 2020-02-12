@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CompanyService} from '../_services/company.service';
+import {PostSmallComponent} from '../post-small/post-small.component';
 
 @Component({
   selector: 'app-all-companies',
@@ -7,11 +8,8 @@ import {CompanyService} from '../_services/company.service';
 })
 export class AllCompaniesComponent implements OnInit {
 
-  categories: String[] = [];
-
-  constructor( private companyService: CompanyService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.companyService.getAllCategories().subscribe(data => this.categories = data);
   }
 }

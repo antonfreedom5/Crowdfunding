@@ -16,7 +16,7 @@ export class AddCompanyComponent implements OnInit {
 
   categories: String[] = [];
   company: Company = new Company();
-  cat: String;
+  categoryOfCompany: String;
   @ViewChild(DragAndDropComponent, {static: false})
   private dropbox: DragAndDropComponent;
 
@@ -24,10 +24,9 @@ export class AddCompanyComponent implements OnInit {
 
   addCompany() {
     this.company["picURLs"] = this.dropbox.getImageSet();
-    this.companyService.addCompany(this.company, this.cat)
+    this.companyService.addCompany(this.company, this.categoryOfCompany)
       .subscribe(data => {
         this.router.navigate(['']);
       });
   }
-
 }

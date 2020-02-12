@@ -11,7 +11,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Category</label>
         </div>
-        <select class="custom-select" id="inputGroupSelect01" name="categories" [(ngModel)]="cat">
+        <select class="custom-select" id="inputGroupSelect01" name="categories" [(ngModel)]="categoryOfCompany">
           <option *ngFor="let category of categories" [value]="category">{{category}}</option>
         </select>
       </div>
