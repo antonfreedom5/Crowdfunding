@@ -15,7 +15,7 @@ import java.util.Set;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @PreAuthorize("hasAuthority('ADMIN')")
-@RequestMapping("/users")
+@RequestMapping("/adminboard")
 public class AdminBoardController {
 
     @Autowired
@@ -27,10 +27,6 @@ public class AdminBoardController {
     @GetMapping("/userlist")
     public List<User> findAllUsers() {
         return userService.findAll();
-    }
-
-    @PutMapping("/save")
-    public void saveUser(@RequestBody User user) {
     }
 
     @DeleteMapping("/cancel/{id}")
@@ -45,7 +41,7 @@ public class AdminBoardController {
     public User revertActivationStatus(@RequestBody User user) {
         User modified = userService.findById(user.getId());
         modified.setActive(!modified.isActive());
-        userService.saveOrUpdate(modified);
+        userService.save(modified);
         return modified;
     }
 
@@ -54,7 +50,7 @@ public class AdminBoardController {
         User modified = userService.findById(user.getId());
         Set<Role> modifiedRoles = modified.getRoles();
         modifiedRoles.add(Role.ADMIN);
-        userService.saveOrUpdate(modified);
+        userService.save(modified);
         return modified;
     }
 }

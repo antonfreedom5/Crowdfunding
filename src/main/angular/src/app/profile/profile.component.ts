@@ -12,7 +12,7 @@ let userService: UserService;
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [ImageUploadService, UserService]
+  providers: [ImageUploadService]
 })
 export class ProfileComponent implements OnInit {
   currentUser: User;
@@ -21,16 +21,19 @@ export class ProfileComponent implements OnInit {
 
   constructor(private token: TokenStorageService,
               private uploadService: ImageUploadService,
-              private usersService: UserService) {
-    userService = this.usersService;
+              usersService: UserService) {
+    userService = usersService;
   }
 
   ngOnInit() {
-    currentUser = this.currentUser = this.token.getUser();
-    this.avatarURL = currentUser.avatarURL
-      ? currentUser.avatarURL
-      : '//ssl.gstatic.com/accounts/ui/avatar_2x.png';
-
+    this.currentUser = this.token.getUser();
+    userService.getUserInfo(this.token.getUser().id)
+      .subscribe((e:User) => {
+        this.currentUser = currentUser = e;
+        this.avatarURL = currentUser.avatarURL
+          ? currentUser.avatarURL
+          : '//ssl.gstatic.com/accounts/ui/avatar_2x.png';
+      });
     this.uploadService.setOnUploadedCallback(this.onUploadedCallback);
     this.uploadService.processDirectSelect(document.getElementById('user_avatar'),
       document.getElementById('fileElem'));
@@ -40,8 +43,11 @@ export class ProfileComponent implements OnInit {
 
   public onUploadedCallback(url) {
     currentUser.avatarURL = url;
-    console.log("current user " + currentUser);
-    console.log("got from server: " + userService.getUsers());
+    userService.saveUserAvatar({id: currentUser.id, avatarURL: url})
+      .subscribe((e:User) => {
+        document.getElementById("user_avatar")
+          .setAttribute('src', e.avatarURL);
+      });
   }
 
   public handleFile(file) {
