@@ -4,11 +4,13 @@ export class User {
   avatarURL?:string;
   email?: string;
   roles?: string[];
+  active?: boolean;
   // @ts-ignore
   constructor(
   id?: number,
   username?: string,
   avatarURL?:string,
   email?: string,
-  roles?: string[])
+  roles?: string[],
+  active?: boolean)
 }

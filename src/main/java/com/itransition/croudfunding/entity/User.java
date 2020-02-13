@@ -39,6 +39,8 @@ public class User {
 	@Size(max = 120)
 	private String password;
 
+	private boolean active;
+
 	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user"))
 	@Enumerated(EnumType.STRING)
@@ -48,5 +50,6 @@ public class User {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		active = true;
 	}
 }
