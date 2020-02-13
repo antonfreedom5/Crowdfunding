@@ -19,4 +19,9 @@ export class UserService {
   public deleteUser(id) {
     return this.http.delete<User[]>(API_URL + 'cancel/' + id);
   }
+
+  public saveUser(user: User) {
+    console.log("saving user :: " + user);
+    return this.http.put<User>(API_URL + 'save', user);
+  }
 }

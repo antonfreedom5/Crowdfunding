@@ -82,7 +82,7 @@ public class AuthController {
 		Set<Role> roles = convertToEnumSet(signUpRequest.getRole());
 
 		user.setRoles(roles);
-		userService.save(user);
+		userService.saveOrUpdate(user);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 

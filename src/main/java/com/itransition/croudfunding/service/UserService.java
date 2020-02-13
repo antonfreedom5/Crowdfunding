@@ -30,9 +30,18 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    public void save(User user) {
+    public void saveOrUpdate(User user) {
+        Optional<User> existing = userRepository.findById(user.getId());
+        if (existing.isPresent()) {
+            updateEntry(existing.get(), user);
+        } else
         userRepository.save(user);
     }
+
+    private void updateEntry(User updatable, User update) {
+
+    }
+
 
     public User findUserByUsername(String name) {
         return userRepository.findUserByUsername(name);

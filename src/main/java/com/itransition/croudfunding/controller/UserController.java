@@ -23,8 +23,12 @@ public class UserController {
     CompanyRepository companyRepository;
 
     @GetMapping("/userlist")
-    public List<User> findAllUsers(){
+    public List<User> findAllUsers() {
         return userService.findAll();
+    }
+
+    @PutMapping("/save")
+    public void saveUser(@RequestBody User user) {
     }
 
     @DeleteMapping("/cancel/{id}")

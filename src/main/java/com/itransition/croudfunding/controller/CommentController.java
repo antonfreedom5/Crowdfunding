@@ -42,8 +42,6 @@ public class CommentController {
         commentService.save(edited);
 
         edited.setType(CommentType.EDITED);
-        System.out.println("initial: " + comment);
-        System.out.println("edited: " + edited);
         messagingTemplate.convertAndSend("/topic/edited/" + edited.getCompanyID(), edited);
     }
 

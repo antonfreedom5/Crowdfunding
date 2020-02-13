@@ -82,7 +82,7 @@ export class CommentsComponent implements OnInit {
 
     let avatarElement = document.createElement('i');
     let img = new Image();
-    img.src = message.avatarURL ? message.avatarURL : "https://pbs.twimg.com/profile_images/378800000017423279/1a6d6f295da9f97bb576ff486ed81389_400x400.png";
+    img.src = message.avatarURL ? message.avatarURL : "//ssl.gstatic.com/accounts/ui/avatar_2x.png";
     img.height = 70;
     img.width = 70;
     img.style.objectFit="cover";
