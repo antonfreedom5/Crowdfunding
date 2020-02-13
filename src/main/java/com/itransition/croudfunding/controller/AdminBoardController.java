@@ -25,8 +25,12 @@ public class AdminBoardController {
     CompanyRepository companyRepository;
 
     @GetMapping("/userlist")
-    public List<User> findAllUsers(){
+    public List<User> findAllUsers() {
         return userService.findAll();
+    }
+
+    @PutMapping("/save")
+    public void saveUser(@RequestBody User user) {
     }
 
     @DeleteMapping("/cancel/{id}")
@@ -41,7 +45,7 @@ public class AdminBoardController {
     public User revertActivationStatus(@RequestBody User user) {
         User modified = userService.findById(user.getId());
         modified.setActive(!modified.isActive());
-        userService.save(modified);
+        userService.saveOrUpdate(modified);
         return modified;
     }
 
@@ -50,7 +54,7 @@ public class AdminBoardController {
         User modified = userService.findById(user.getId());
         Set<Role> modifiedRoles = modified.getRoles();
         modifiedRoles.add(Role.ADMIN);
-        userService.save(modified);
+        userService.saveOrUpdate(modified);
         return modified;
     }
 }

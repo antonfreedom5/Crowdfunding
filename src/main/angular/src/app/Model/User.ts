@@ -1,6 +1,7 @@
 export class User {
   id?: number;
   username?: string;
+  avatarURL?:string;
   email?: string;
   roles?: string[];
   active?: boolean;
@@ -8,8 +9,8 @@ export class User {
   constructor(
   id?: number,
   username?: string,
+  avatarURL?:string,
   email?: string,
   roles?: string[],
   active?: boolean)
-
 }

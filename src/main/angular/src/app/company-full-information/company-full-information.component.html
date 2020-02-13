@@ -1,17 +1,17 @@
 <div class="container">
   <div class="row mt-4" style="border: 1px solid #efefed">
     <div class="col p-4">
-      <img src="{{companies.picURLs[0]}}" style="width: 100%"/>
+      <img alt="not found" src="{{company.picURLs[0]}}" style="width: 100%"/>
         <div class="row">
       <div class="col starrating risingstar d-flex justify-content-center flex-row-reverse" *ngIf="userAdmin">
-        <input type="radio" id="star5" name="rating" [value]="5" [(ngModel)]="companies.rating"/><label for="star5" title="5 star" (click)="setRating(5)"></label>
-        <input type="radio" id="star4" name="rating" [value]="4" [(ngModel)]="companies.rating"/><label for="star4" title="4 star" (click)="setRating(4)"></label>
-        <input type="radio" id="star3" name="rating" [value]="3" [(ngModel)]="companies.rating"/><label for="star3" title="3 star" (click)="setRating(3)"></label>
-        <input type="radio" id="star2" name="rating" [value]="2" [(ngModel)]="companies.rating"/><label for="star2" title="2 star" (click)="setRating(2)"></label>
-        <input type="radio" id="star1" name="rating" [value]="1" [(ngModel)]="companies.rating"/><label for="star1" title="1 star" (click)="setRating(1)"></label>
+        <input type="radio" id="star5" name="rating" [value]="5" [(ngModel)]="company.rating"/><label for="star5" title="5 star" (click)="setRating(5)"></label>
+        <input type="radio" id="star4" name="rating" [value]="4" [(ngModel)]="company.rating"/><label for="star4" title="4 star" (click)="setRating(4)"></label>
+        <input type="radio" id="star3" name="rating" [value]="3" [(ngModel)]="company.rating"/><label for="star3" title="3 star" (click)="setRating(3)"></label>
+        <input type="radio" id="star2" name="rating" [value]="2" [(ngModel)]="company.rating"/><label for="star2" title="2 star" (click)="setRating(2)"></label>
+        <input type="radio" id="star1" name="rating" [value]="1" [(ngModel)]="company.rating"/><label for="star1" title="1 star" (click)="setRating(1)"></label>
       </div>
           <div class="col text-right">
-            <span class="lead">Category: {{companies.categories}}</span>
+            <span class="lead">Category: {{company.categories}}</span>
           </div>
         </div>
       <div class="row">
@@ -19,8 +19,8 @@
       </div>
     </div>
     <div class="col-5">
-      <h2 class="display-4 m-3">{{companies.companyName}}</h2>
-      <p class="lead m-3">{{companies.fullDisc}}</p>
+      <h2 class="display-4 m-3">{{company.companyName}}</h2>
+      <p class="lead m-3">{{company.fullDisc}}</p>
 
       <p>
         <button class="btn btn-primary ml-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -49,19 +49,21 @@
     </div>
     <div class="col m-3">
       <p class="lead text-muted">Reached</p>
-      <h4 class="text">{{companies.reached}} y.e.</h4>
+      <h4 class="text">{{company.reached}} y.e.</h4>
     </div>
     <div class="col m-3">
       <p class="lead text-muted">Goal</p>
-      <h4 class="text">{{companies.goal}} y.e.</h4>
+      <h4 class="text">{{company.goal}} y.e.</h4>
     </div>
     <div class="col m-3">
       <p class="lead text-muted">Date duration</p>
-      <h4 class="text">{{companies.durationDate}}</h4>
+      <h4 class="text">{{company.durationDate}}</h4>
     </div>
     <div class="col m-3">
       <p class="lead text-muted">Days left</p>
       <h4 class="text">{{daysLeft}}</h4>
     </div>
   </div>
+  <comments-child></comments-child>
+
 </div>

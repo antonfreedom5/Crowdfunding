@@ -79,7 +79,7 @@ export class ImageUploadService {
         // https://res.cloudinary.com/cloudName/image/upload/v1483481128/public_id.jpg
         var url = response.secure_url;
         var tokens = url.split('/');
-        tokens.splice(-2, 0, 'w_333,c_scale');
+        tokens.splice(-2, 0, 'w_350,c_scale');
         url = tokens.join('/');
         onUploadedCallback(url);
       }

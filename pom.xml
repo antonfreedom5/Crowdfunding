@@ -9,11 +9,10 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
-	<artifactId>spring-boot-security-jwt</artifactId>
+	<groupId>com.itransition.croudfunding</groupId>
+	<artifactId>croudfunding</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security-jwt</name>
-	<description>Demo project for Spring Boot Security - JWT</description>
+	<name>croudfunding</name>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -61,18 +60,12 @@
 			<version>1.18.10</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.cloudinary</groupId>
-			<artifactId>cloudinary-http44</artifactId>
-			<version>1.23.0</version>
-		</dependency>
 
-		<dependency>
-			<groupId>com.cloudinary</groupId>
-			<artifactId>cloudinary</artifactId>
-			<version>1.0.2</version>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

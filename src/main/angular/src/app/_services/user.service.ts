@@ -30,4 +30,9 @@ export class UserService {
   public makeAdmin(id): Observable<User> {
     return this.http.patch(API_URL + 'makeAdmin', {id: id})
   }
+
+  public saveUser(user: User) {
+    console.log("saving user :: " + user);
+    return this.http.put<User>(API_URL + 'save', user);
+  }
 }
