@@ -61,7 +61,6 @@ export class CommentsComponent implements OnInit {
         content: messageContent,
         type: 'COMMENT'
       };
-      console.log("message: " + companyID);
       webSocketAPI._send(chatMessage);
       (<HTMLInputElement>document.getElementById('message')).value = '';
     }
@@ -69,7 +68,6 @@ export class CommentsComponent implements OnInit {
   }
 
   handleMessage(message: Comment) {
-    console.log("received message: " + message);
     if (message.type === 'EDITED') {
       this.handleEditedMessage(message);
       return;
@@ -119,16 +117,15 @@ export class CommentsComponent implements OnInit {
   }
 
   handleEditedMessage(message: Comment) {
-    console.log("calling 'handleEditedMEssage'!!!!!!");
     let messageArea = document.getElementById('messageArea');
     let messageElements = messageArea.children;
     for (let i = 0; i < messageElements.length; i++) {
       if (messageElements[i].getAttribute("id") == String(message.id)) {
         let messageElement = messageElements[i];
         let buttonsContainer = messageElement.children[2];
-        buttonsContainer.children[0].removeEventListener('click', this.onLikeClicked);
+       // buttonsContainer.children[0].removeEventListener('click', this.onLikeClicked);
         buttonsContainer.children[1].innerHTML = ` :    ${message.peopleWhoLikedIDs.length}   `;
-        buttonsContainer.children[2].removeEventListener('click', this.onDislikeClicked);
+       // buttonsContainer.children[2].removeEventListener('click', this.onDislikeClicked);
         buttonsContainer.children[3].innerHTML = ` :    ${message.peopleWhoDislikedIDs.length}   `;
       }
     }
@@ -152,6 +149,7 @@ export class CommentsComponent implements OnInit {
     let button = document.createElement('a');
     button.className="fa fa-thumbs-up";
     button.style.cssText="font-size: 20px; cursor: pointer; user-select: none";
+
     if (token.getUser() && !(message.peopleWhoLikedIDs.includes(token.getUser().id)
       || message.peopleWhoDislikedIDs.includes(token.getUser().id) )) {
       button.addEventListener('click', this.onLikeClicked);

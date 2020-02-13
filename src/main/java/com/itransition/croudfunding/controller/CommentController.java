@@ -29,6 +29,8 @@ public class CommentController {
 
     @MessageMapping("/comments.sendComment")
     public void sendMessage(@Payload Comment comment) {
+        String avatarURL = userService.findUserByUsername(comment.getSender()).getAvatarURL();
+        comment.setAvatarURL(avatarURL);
         commentService.save(comment);
         messagingTemplate.convertAndSend("/topic/" + comment.getCompanyID(), comment);
     }
