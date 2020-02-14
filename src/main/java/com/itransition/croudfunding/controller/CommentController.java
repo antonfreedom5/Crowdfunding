@@ -12,6 +12,9 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin(origins = "*")
 
 @Controller
 public class CommentController {
@@ -26,6 +29,8 @@ public class CommentController {
 
     @MessageMapping("/comments.sendComment")
     public void sendMessage(@Payload Comment comment) {
+        String avatarURL = userService.findUserByUsername(comment.getSender()).getAvatarURL();
+        comment.setAvatarURL(avatarURL);
         commentService.save(comment);
         messagingTemplate.convertAndSend("/topic/" + comment.getCompanyID(), comment);
     }
@@ -42,8 +47,6 @@ public class CommentController {
         commentService.save(edited);
 
         edited.setType(CommentType.EDITED);
-        System.out.println("initial: " + comment);
-        System.out.println("edited: " + edited);
         messagingTemplate.convertAndSend("/topic/edited/" + edited.getCompanyID(), edited);
     }
 

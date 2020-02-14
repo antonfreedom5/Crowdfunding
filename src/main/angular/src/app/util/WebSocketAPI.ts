@@ -50,22 +50,18 @@ export class WebSocketAPI {
   }
 
   _send(message) {
-    console.log("Calling 'send' via web socket");
     this.stompClient.send("/app/comments.sendComment", {}, JSON.stringify(message));
   }
 
   _sendEdited(message) {
-    console.log("Calling 'sendEdited' via web socket");
     this.stompClient.send("/app/comments.editComment", {}, JSON.stringify(message));
   }
 
   onMessageReceived(message) {
-    console.log("Message Recieved from Server :: " + message);
     this.contextComponent.handleMessage(JSON.parse(message.body));
   }
 
   onEditedMessageReceived(message) {
-    console.log("Edited Message Recieved from Server :: " + message);
     this.contextComponent.handleEditedMessage(JSON.parse(message.body));
   }
 }

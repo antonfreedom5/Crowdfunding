@@ -28,6 +28,8 @@ public class User {
 	@Size(max = 20)
 	private String username;
 
+	private String avatarURL;
+
 	@NotBlank
 	@Size(max = 50)
 	@Email
@@ -36,6 +38,8 @@ public class User {
 	@NotBlank
 	@Size(max = 120)
 	private String password;
+
+	private boolean active;
 
 	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user"))
@@ -46,5 +50,6 @@ public class User {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		active = true;
 	}
 }

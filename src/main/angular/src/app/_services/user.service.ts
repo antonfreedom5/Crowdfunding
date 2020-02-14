@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { User } from '../Model/User';
-import {Observable} from 'rxjs';
+import {HttpClient} from "@angular/common/http";
+import {User} from "../Model/User";
+import {Observable} from "rxjs";
 
 const API_URL = 'http://localhost:8090/users/';
 
@@ -12,11 +12,11 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(API_URL + 'userlist');
+  getUserInfo(id: number): Observable<User> {
+    return this.http.get(API_URL + 'getUserInfo/' + id);
   }
 
-  public deleteUser(id) {
-    return this.http.delete<User[]>(API_URL + 'cancel/' + id);
+  public saveUserAvatar(user: User): Observable<User> {
+    return this.http.patch<User>(API_URL + 'saveAvatar', user);
   }
 }
